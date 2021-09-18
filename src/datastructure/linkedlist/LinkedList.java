@@ -161,4 +161,51 @@ public class LinkedList {
     private boolean hasSingleNode() {
         return first == last;
     }
+
+    public String middle() {
+        if (isEmpty())
+            throw new IllegalStateException();
+
+        Node a = first;
+        Node b = first;
+
+        while (b != last && b.next != last) {
+            b = b.next.next;
+            a = a.next;
+        }
+
+        if (b == last)
+            return String.valueOf(a.value);
+        else
+            return String.format("%s, %s", a.value, a.next.value);
+    }
+
+    public boolean hasLoop() {
+        Node slow = first;
+        Node fast = first;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) return true;
+        }
+
+        return false;
+    }
+
+    public static LinkedList createWithLoop() {
+        LinkedList list = new LinkedList();
+        list.addLast(10);
+        list.addLast(20);
+        list.addLast(30);
+
+        Node node = list.last;
+        list.addLast(40);
+        list.addLast(50);
+
+        list.last.next = node;
+
+        return list;
+    }
 }
