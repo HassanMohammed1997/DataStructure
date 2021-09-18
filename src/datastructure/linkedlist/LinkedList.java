@@ -40,6 +40,42 @@ public class LinkedList {
         size++;
     }
 
+    public void reverse() {
+        if (isEmpty())
+            return;
+
+        Node previous = first;
+        Node current = first.next;
+        while (current != null) {
+            Node next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        last = first;
+        last.next = null;
+        first = previous;
+
+    }
+
+    public int getKthFromTheEnd(int k) {
+        if (isEmpty()) throw new IllegalStateException();
+        Node a = first;
+        Node b = first;
+        for (int i = 0; i < k - 1; i++) {
+            b = b.next;
+            if (b == null) throw new IllegalArgumentException();
+        }
+
+        while (b != last) {
+            a = a.next;
+            b = b.next;
+        }
+
+        return a.value;
+    }
+
     public int indexOf(int item) {
         int index = 0;
         Node current = first;
